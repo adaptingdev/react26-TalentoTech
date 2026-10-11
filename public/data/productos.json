@@ -1,0 +1,22 @@
+[
+    { 
+      "id": 1, 
+      "nombre": "Creatina Monohidratada 300g", 
+      "precio": 35000, 
+      "stock": 15,
+      "imagen": "https://dcdn-us.mitiendanube.com/stores/003/314/956/products/creatina-star-de-1kg-447e4e0e945deb913217132142489663-480-0.webp"
+    },
+    { 
+      "id": 2, 
+      "nombre": "Whey Protein Isolate 1kg", 
+      "precio": 48000, 
+      "stock": 25,
+      "imagen": "https://acdn-us.mitiendanube.com/stores/003/684/940/products/4c2ae7aa-e986-417b-825d-23755f556f41-1e5e40a3485889036217350512236779-480-0.webp"
+    },
+    { 
+      "id": 3, 
+      "nombre": "Pre-Workout TNT 300g", 
+      "precio": 29000, 
+      "stock": 20,
+      "imagen": "https://cdn.v2.tiendanegocio.com/gallery/22886/img_22886_18f3081876f.jpeg?class=sm"
+    }]

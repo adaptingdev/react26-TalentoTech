@@ -1,0 +1,22 @@
+[
+    { 
+      "id": 1, 
+      "nombre": "Leandro Julián Lima", 
+      "email": "leandrolima@gmail.com", 
+      "puesto": "Desarrollador",
+      "foto": "/public/perfil.jpg"
+    },
+    { 
+      "id": 2, 
+      "nombre": "Elon Musk", 
+      "email": "elonmusk@gmail.com", 
+      "puesto": "CEO",
+      "foto": "/public/elon.jpg"
+    },
+    { 
+      "id": 3, 
+      "nombre": "Chris Bumstead", 
+      "email": "cbum@gmail.com", 
+      "puesto": "Preparador físico",
+      "foto": "/public/chris.jpg"
+    }]

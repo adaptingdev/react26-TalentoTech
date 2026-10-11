@@ -1,0 +1,89 @@
+.footer {
+    background-color: #0b1329;
+    color: #94a3b8;
+    padding: 2.5rem 1.5rem 1rem 1.5rem;
+    border-top: 1px solid #1e293b;
+    margin-top: 3rem;
+}
+
+.contenedor {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.columna {
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+}
+
+.tituloMarca {
+    color: #f8fafc;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+.tituloMarca span {
+    color: #22c55e;
+}
+
+.subtitulo {
+    color: #22c55e;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+}
+
+.subSpan {
+    margin-top: 3rem;
+}
+
+.texto {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #94a3b8;
+}
+
+.mediosPago {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.textoMedios {
+    font-size: 0.82rem;
+    line-height: 1.4;
+}
+
+.lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lista li {
+    margin-bottom: 0.4rem;
+}
+
+.lista a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 0.2s ease;
+}
+
+.lista a:hover {
+    color: #22c55e;
+}
+
+.copyright {
+    text-align: center;
+    border-top: 1px solid #1e293b;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    font-size: 0.8rem;
+    color: #64748b;
+}
