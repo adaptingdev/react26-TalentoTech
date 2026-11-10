@@ -1,10 +1,9 @@
 import styles from './Footer.module.css';
-import { EquipoListContainer } from '../../Equipo/EquipoListContainer/EquipoListContainer';
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
     <footer className={styles.footer}>
-      <EquipoListContainer mensaje={"Nuestro Equipo"} />
         <div className={styles.contenedor}>
       
         <div className={styles.columna}>
@@ -19,9 +18,9 @@ function Footer() {
         <div className={styles.columna}>
           <h4 className={styles.subtitulo}>Navegación</h4>
           <ul className={styles.lista}>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#productos">Productos</a></li>
-            <li><a href="#contacto">Contacto</a></li>
+            <li><Link to='/'>Inicio</Link></li>
+            <li><Link to='/productos'>Productos</Link></li>
+            <li><Link to='/nuevo'>Contacto</Link></li>
           </ul>
         </div>
 

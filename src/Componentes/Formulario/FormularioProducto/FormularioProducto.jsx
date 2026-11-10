@@ -1,6 +1,6 @@
 import styles from "./FormularioProducto.module.css";
 
-function FormularioProducto({ datosForm, manejarCambio, manejarEnvio }) {
+function FormularioProducto({ datosForm, manejarCambio, manejarEnvio, manejarCambioImagen, cargando }) {
   return (
     <form className={styles.contenedorForm} onSubmit={manejarEnvio}>
       <h3 className={styles.titulo}>Agregar nuevo producto</h3>
@@ -14,6 +14,7 @@ function FormularioProducto({ datosForm, manejarCambio, manejarEnvio }) {
           placeholder="Ej: Barritas proteina x80gr"
           value={datosForm?.nombre || ""}
           onChange={manejarCambio}
+          disabled={cargando}
         />
       </div>
 
@@ -26,6 +27,7 @@ function FormularioProducto({ datosForm, manejarCambio, manejarEnvio }) {
           name="precio"
           value={datosForm?.precio || ""}
           onChange={manejarCambio}
+          disabled={cargando}
         />
       </div>
 
@@ -38,6 +40,7 @@ function FormularioProducto({ datosForm, manejarCambio, manejarEnvio }) {
           name="id"
           value={datosForm?.id || ""}
           onChange={manejarCambio}
+          disabled={cargando}
         />
       </div>
 
@@ -50,6 +53,7 @@ function FormularioProducto({ datosForm, manejarCambio, manejarEnvio }) {
           name="stock"
           value={datosForm?.stock || ""}
           onChange={manejarCambio} 
+          disabled={cargando}
         />
       </div>
 
@@ -57,12 +61,17 @@ function FormularioProducto({ datosForm, manejarCambio, manejarEnvio }) {
         <label className={styles.label}>Imagen:</label>
         <input 
           className={styles.input}
-          type="file" 
+          type="file"
+          name="imagen"
+          onChange={manejarCambioImagen}
+          disabled={cargando}
         />
       </div>
 
-      <button className={styles.botonSubmit} type="submit">
-        Guardar Producto
+      <button className={styles.botonSubmit} 
+      type="submit"
+      disabled={cargando}>
+        {cargando ? "Subiendo imagen" : "Guardar producto"}
       </button>
     </form>
   );

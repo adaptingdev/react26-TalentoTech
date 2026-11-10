@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframes Sistema VV</title>
+<style>
+  :root {
+    --ink: #222;
+    --muted: #5f5f5f;
+    --line: #b5b5b5;
+    --fill: #f0f0f0;
+    --paper: #fff;
+    --desk: #e6e6e6;
+    --warn: #9a3b00;
+    --warn-bg: #fff1e6;
+    --ok: #1d5c2e;
+    --note: #fff7c2;
+    --note-line: #d8c35a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 18px;
+    line-height: 1.45;
+    color: var(--ink);
+    background: var(--desk);
+  }
+  h1, h2, h3 { line-height: 1.2; margin: 0 0 12px; }
+  h1 { font-size: 30px; }
+  h2 { font-size: 24px; }
+  h3 { font-size: 20px; }
+  p { margin: 0 0 12px; }
+  .muted { color: var(--muted); }
+
+  /* ---------- Barra de herramientas (no es parte del sistema) ---------- */
+  .toolbar {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+    padding: 10px 16px;
+    background: #333; color: #fff; font-size: 15px;
+  }
+  .toolbar strong { margin-right: auto; }
+  .toolbar button {
+    font: inherit; padding: 6px 12px; border-radius: 6px;
+    border: 1px solid #888; background: #444; color: #fff; cursor: pointer;
+  }
+  .toolbar button[aria-pressed="true"] { background: #fff; color: #222; }
+  .toolbar label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
+
+  /* ---------- Marco del dispositivo ---------- */
+  .frame {
+    display: grid; grid-template-columns: 250px 1fr;
+    max-width: 1200px; min-height: 780px;
+    margin: 20px auto; background: var(--paper);
+    border: 2px solid #999; border-radius: 10px; overflow: hidden;
+  }
+  .frame.mobile {
+    grid-template-columns: 1fr; max-width: 390px; min-height: 760px;
+    border-radius: 28px; border-width: 10px; border-color: #333;
+    position: relative;
+  }
+
+  /* ---------- Menú lateral (PC) ---------- */
+  .sidebar { background: var(--fill); border-right: 2px solid var(--line); padding: 20px 14px; }
+  .logo { font-weight: 800; font-size: 22px; margin: 0 6px 20px; }
+  .nav { display: flex; flex-direction: column; gap: 6px; }
+  .nav button {
+    display: flex; align-items: center; gap: 10px; width: 100%;
+    font: inherit; font-size: 19px; text-align: left;
+    padding: 12px 12px; border: 2px solid transparent; border-radius: 8px;
+    background: transparent; color: var(--ink); cursor: pointer;
+  }
+  .nav button:hover { border-color: var(--line); }
+  .nav button.active { background: var(--paper); border-color: var(--ink); font-weight: 700; }
+  .nav .sep { margin: 14px 8px 4px; font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .tag { font-size: 12px; padding: 1px 6px; border: 1px solid var(--muted); border-radius: 10px; color: var(--muted); margin-left: auto; white-space: nowrap; }
+
+  /* ---------- Barra inferior (celular) ---------- */
+  .bottomnav { display: none; }
+  .frame.mobile .sidebar { display: none; }
+  .frame.mobile .bottomnav {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    position: sticky; bottom: 0; background: var(--fill);
+    border-top: 2px solid var(--line);
+  }
+  .bottomnav button {
+    font: inherit; font-size: 14px; padding: 10px 2px 12px;
+    background: none; border: 0; cursor: pointer; color: var(--ink);
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .bottomnav button .ico { font-size: 22px; }
+  .bottomnav button.active { font-weight: 700; text-decoration: underline; }
+  .frame.mobile main { display: flex; flex-direction: column; min-height: 740px; }
+  .frame.mobile .screen.active { flex: 1; }
+
+  /* ---------- Pantallas ---------- */
+  main { min-width: 0; }
+  .screen { display: none; padding: 28px; }
+  .screen.active { display: block; }
+  .frame.mobile .screen { padding: 18px 16px; }
+  .screen-head { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 20px; }
+  .screen-head h1 { margin: 0; margin-right: auto; }
+  .back { font: inherit; font-size: 17px; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; color: var(--ink); margin-bottom: 10px; }
+
+  .grid { display: grid; gap: 16px; }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  .frame.mobile .g3, .frame.mobile .g4 { grid-template-columns: repeat(2, 1fr); }
+  .frame.mobile .g2, .frame.mobile .g-stack { grid-template-columns: 1fr; }
+  .frame.mobile .desktop-only { display: none !important; }
+  .mobile-only { display: none; }
+  .frame.mobile .mobile-only { display: block; }
+
+  .box { border: 2px solid var(--line); border-radius: 10px; padding: 16px; background: var(--paper); }
+  .box.dashed { border-style: dashed; }
+  .section { margin-bottom: 22px; }
+  .step { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: var(--ink); color: #fff; font-weight: 700; margin-right: 8px; font-size: 17px; }
+
+  .stat .label { font-size: 16px; color: var(--muted); }
+  .stat .value { font-size: 30px; font-weight: 800; }
+  .frame.mobile .stat .value { font-size: 24px; }
+  .stat.warn { border-color: var(--warn); background: var(--warn-bg); }
+  .stat.warn .value { color: var(--warn); }
+
+  /* Botones */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font: inherit; font-size: 19px; font-weight: 600;
+    min-height: 52px; padding: 10px 20px;
+    border: 2px solid var(--ink); border-radius: 10px;
+    background: var(--paper); color: var(--ink); cursor: pointer;
+  }
+  .btn.primary { background: var(--ink); color: #fff; }
+  .btn.small { font-size: 16px; min-height: 40px; padding: 6px 12px; }
+  .btn.block { width: 100%; }
+  .bigaction {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
+    font: inherit; text-align: left; cursor: pointer;
+    padding: 20px; border: 2px solid var(--ink); border-radius: 12px; background: var(--paper);
+  }
+  .bigaction .ico { font-size: 34px; }
+  .bigaction strong { font-size: 22px; }
+  .bigaction span { color: var(--muted); font-size: 16px; }
+  .bigaction:hover { background: var(--fill); }
+
+  /* Formularios */
+  label.f { display: block; font-weight: 600; margin-bottom: 6px; }
+  .input, select.input {
+    width: 100%; font: inherit; font-size: 19px;
+    padding: 12px 14px; min-height: 52px;
+    border: 2px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink);
+  }
+  .input.money { font-size: 24px; font-weight: 700; }
+  .hint { font-size: 15px; color: var(--muted); margin-top: 4px; }
+  .choice { display: flex; flex-wrap: wrap; gap: 10px; }
+  .choice button {
+    flex: 1 1 140px; font: inherit; font-size: 19px; min-height: 56px; padding: 8px 12px;
+    border: 2px solid var(--line); border-radius: 10px; background: var(--paper); cursor: pointer; color: var(--ink);
+  }
+  .choice button.sel { border-color: var(--ink); border-width: 3px; font-weight: 700; background: var(--fill); }
+  .searchbox { position: relative; }
+  .searchbox .input { padding-left: 44px; }
+  .searchbox::before { content: "🔍"; position: absolute; left: 14px; top: 13px; font-size: 18px; }
+
+  /* Tablas */
+  .tablewrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 18px; }
+  th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  th { font-size: 15px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .03em; }
+  td.num, th.num { text-align: right; white-space: nowrap; }
+  tr.late td { background: var(--warn-bg); }
+
+  /* Imagen placeholder */
+  .img {
+    background:
+      linear-gradient(to top right, transparent calc(50% - 1px), var(--line) 50%, transparent calc(50% + 1px)),
+      linear-gradient(to top left, transparent calc(50% - 1px), var(--line) 50%, transparent calc(50% + 1px)),
+      var(--fill);
+    border: 1px solid var(--line); border-radius: 6px;
+  }
+  .img.sm { width: 48px; height: 48px; flex: none; }
+  .img.md { width: 100%; aspect-ratio: 4 / 3; }
+
+  .chip { display: inline-block; font-size: 16px; padding: 3px 10px; border: 1px solid var(--line); border-radius: 14px; margin: 2px 4px 2px 0; }
+  .chip.zero { color: var(--muted); text-decoration: line-through; }
+  .badge { display: inline-block; font-size: 14px; font-weight: 700; padding: 2px 8px; border-radius: 6px; border: 1px solid var(--ink); }
+  .badge.warn { color: var(--warn); border-color: var(--warn); background: var(--warn-bg); }
+  .badge.ok { color: var(--ok); border-color: var(--ok); }
+  .row { display: flex; align-items: center; gap: 12px; }
+  .row.between { justify-content: space-between; }
+  .wrap { flex-wrap: wrap; }
+  .total { font-size: 26px; font-weight: 800; }
+  .list > * + * { border-top: 1px solid var(--line); }
+  .list > * { padding: 12px 0; }
+
+  /* Línea de tiempo de la cuenta */
+  .tl-item { display: grid; grid-template-columns: 110px 1fr auto auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .frame.mobile .tl-item { grid-template-columns: 1fr auto; }
+  .frame.mobile .tl-item .tl-date { grid-column: 1 / -1; font-size: 15px; }
+  .frame.mobile .tl-item .tl-bal { display: none; }
+  .tl-date { color: var(--muted); font-size: 16px; }
+  .plus { color: var(--warn); font-weight: 700; }
+  .minus { color: var(--ok); font-weight: 700; }
+
+  /* Columnas de pedidos */
+  .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .frame.mobile .cols { grid-template-columns: 1fr; }
+  .card { border: 2px solid var(--line); border-radius: 10px; padding: 12px; margin-bottom: 10px; background: var(--paper); }
+
+  /* Barras del reporte */
+  .bars { display: flex; align-items: flex-end; gap: 10px; height: 160px; padding-top: 10px; }
+  .bars div { flex: 1; background: var(--line); border-radius: 4px 4px 0 0; position: relative; }
+  .bars div span { position: absolute; bottom: -24px; left: 0; right: 0; text-align: center; font-size: 14px; color: var(--muted); }
+  .bars div.cur { background: var(--ink); }
+
+  /* Notas de diseño */
+  .note {
+    margin-top: 28px; padding: 14px 16px; font-size: 16px;
+    background: var(--note); border: 1px dashed var(--note-line); border-radius: 8px;
+  }
+  .note h4 { margin: 0 0 6px; font-size: 16px; }
+  .note ul { margin: 0; padding-left: 20px; }
+  body.hide-notes .note { display: none; }
+
+  .alert { padding: 12px 14px; border-radius: 8px; border: 2px solid var(--warn); background: var(--warn-bg); color: var(--warn); font-weight: 600; }
+  .hidden { display: none !important; }
+
+  @media (max-width: 720px) {
+    .frame:not(.mobile) { grid-template-columns: 1fr; margin: 0; border-radius: 0; border-width: 0; }
+    .frame:not(.mobile) .sidebar { border-right: 0; border-bottom: 2px solid var(--line); }
+    .frame:not(.mobile) .g3, .frame:not(.mobile) .g4 { grid-template-columns: repeat(2, 1fr); }
+    .frame:not(.mobile) .g2, .frame:not(.mobile) .cols { grid-template-columns: 1fr; }
+    .screen { padding: 18px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <strong>Wireframes · Sistema VV · v0.1</strong>
+  <span>Ver como:</span>
+  <button id="btnDesk" aria-pressed="true">🖥️ Computadora</button>
+  <button id="btnMob" aria-pressed="false">📱 Celular</button>
+  <label><input type="checkbox" id="chkNotes" checked> Notas de diseño</label>
+</div>
+
+<div class="frame" id="frame">
+  <!-- ================= MENÚ LATERAL ================= -->
+  <aside class="sidebar">
+    <div class="logo">👗 Mi Negocio</div>
+    <nav class="nav">
+      <button data-go="inicio">🏠 Inicio</button>
+      <button data-go="venta">🛍️ Registrar venta</button>
+      <button data-go="pago">💵 Registrar pago</button>
+      <button data-go="compra">🧾 Registrar compra</button>
+      <div class="sep">Consultar</div>
+      <button data-go="clientas">👩 Clientas</button>
+      <button data-go="prendas">👕 Prendas</button>
+      <div class="sep">Más</div>
+      <button data-go="salida">👜 Salidas <span class="tag">Etapa 2</span></button>
+      <button data-go="pedidos">📋 Encargues <span class="tag">Etapa 2</span></button>
+      <button data-go="reportes">📊 ¿Cómo voy? <span class="tag">Etapa 2</span></button>
+    </nav>
+  </aside>
+
+  <main>
+    <!-- ================= 1. INICIO ================= -->
+    <section class="screen" id="inicio">
+      <div class="screen-head"><h1>Buen día 👋</h1><span class="muted">Jueves 6 de noviembre</span></div>
+
+      <div class="grid g4 section">
+        <button class="bigaction" data-go="venta"><span class="ico">🛍️</span><strong>Vender</strong><span>Anotar una venta</span></button>
+        <button class="bigaction" data-go="pago"><span class="ico">💵</span><strong>Cobrar</strong><span>Anotar un pago</span></button>
+        <button class="bigaction" data-go="compra"><span class="ico">🧾</span><strong>Comprar</strong><span>Cargar mercadería</span></button>
+        <button class="bigaction" data-go="clientas"><span class="ico">👩</span><strong>Clientas</strong><span>Ver quién debe</span></button>
+      </div>
+
+      <div class="grid g3 section">
+        <div class="box stat"><div class="label">Te deben en total</div><div class="value">$ 184.500</div><div class="hint">18 clientas</div></div>
+        <div class="box stat"><div class="label">Cobraste este mes</div><div class="value">$ 96.000</div><div class="hint">de $ 130.000 vendidos</div></div>
+        <div class="box stat warn"><div class="label">Prendas que no salen</div><div class="value">3</div><div class="hint">Ofrecelas antes de regalarlas</div></div>
+      </div>
+
+      <div class="grid g2 g-stack">
+        <div class="box">
+          <h3>⏰ Hace más de 30 días que no pagan</h3>
+          <div class="list">
+            <div class="row between"><span>Susana R. <span class="muted">· Sindicato</span></span><strong>$ 21.000</strong></div>
+            <div class="row between"><span>Graciela P. <span class="muted">· CONICET</span></span><strong>$ 14.500</strong></div>
+            <div class="row between"><span>Norma L. <span class="muted">· CONICET</span></span><strong>$ 9.000</strong></div>
+          </div>
+          <button class="btn small" data-go="clientas">Ver todas</button>
+        </div>
+        <div class="box">
+          <h3>📋 Encargues pendientes</h3>
+          <div class="list">
+            <div>Parka negra talle L <span class="muted">· para Marta</span></div>
+            <div>Cambio: remera M blanca <span class="muted">· para Ana</span></div>
+          </div>
+          <button class="btn small" data-go="pedidos">Ver encargues</button>
+        </div>
+      </div>
+
+      <div class="note">
+        <h4>📝 Notas de diseño</h4>
+        <ul>
+          <li>La pantalla de inicio responde sus 3 preguntas de todos los días: <b>¿quién me debe?</b>, <b>¿cuánto cobré?</b> y <b>¿qué no se vende?</b></li>
+          <li>Las 4 acciones más frecuentes están arriba, como botones grandes con ícono y texto (nunca solo ícono).</li>
+          <li>Texto base de 18px, títulos grandes y alto contraste (RNF-01). Los colores solo se usan para alertas.</li>
+          <li>Probar con ella: ¿entiende "Te deben en total" sin explicación?</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 2. REGISTRAR VENTA ================= -->
+    <section class="screen" id="venta">
+      <div class="screen-head"><h1>🛍️ Registrar venta</h1></div>
+
+      <div class="box section">
+        <h2><span class="step">1</span>¿Quién compra?</h2>
+        <div class="row wrap">
+          <div class="searchbox" style="flex:1 1 260px"><input class="input" value="Marta Gómez" aria-label="Buscar clienta"></div>
+          <button class="btn">+ Clienta nueva</button>
+        </div>
+        <p class="hint">Marta Gómez · CONICET · hoy debe $ 7.500</p>
+      </div>
+
+      <div class="box section">
+        <h2><span class="step">2</span>¿Qué se lleva?</h2>
+        <div class="searchbox section"><input class="input" placeholder="Buscar prenda: remera, jean, parka…" aria-label="Buscar prenda"></div>
+        <div class="list">
+          <div class="row wrap">
+            <div class="img sm"></div>
+            <div style="flex:1 1 180px"><b>Remera oversize</b><br><span class="muted">Talle M · Negra</span></div>
+            <div style="width:160px"><input class="input" value="$ 12.500" aria-label="Precio"><div class="hint">Sugerido: $ 12.500</div></div>
+            <button class="btn small" aria-label="Quitar">✕</button>
+          </div>
+          <div class="row wrap">
+            <div class="img sm"></div>
+            <div style="flex:1 1 180px"><b>Jogging frisado</b><br><span class="muted">Talle L · Gris</span></div>
+            <div style="width:160px"><input class="input" value="$ 18.000" aria-label="Precio"><div class="hint">Sugerido: $ 18.750</div></div>
+            <button class="btn small" aria-label="Quitar">✕</button>
+          </div>
+        </div>
+        <div class="row between" style="margin-top:12px"><span>Total</span><span class="total">$ 30.500</span></div>
+      </div>
+
+      <div class="box section">
+        <h2><span class="step">3</span>¿Cómo paga?</h2>
+        <div class="choice section" data-group="tipoVenta">
+          <button class="sel" data-val="fiado">📒 Fiado (paga después)</button>
+          <button data-val="contado">💵 Pagó todo ahora</button>
+        </div>
+        <div id="pagoInicial">
+          <label class="f" for="entrega">¿Dejó algo ahora? <span class="muted">(opcional)</span></label>
+          <div class="grid g2">
+            <input class="input money" id="entrega" placeholder="$ 0">
+            <select class="input" aria-label="Medio de pago"><option>Efectivo</option><option>Mercado Pago</option><option>Transferencia</option></select>
+          </div>
+        </div>
+        <p class="hint" style="margin-top:12px">Después de esta venta, Marta va a deber <b>$ 38.000</b>.</p>
+      </div>
+
+      <div class="row wrap">
+        <button class="btn primary">✔ Guardar venta</button>
+        <button class="btn" data-go="inicio">Cancelar</button>
+      </div>
+
+      <div class="note">
+        <h4>📝 Notas de diseño</h4>
+        <ul>
+          <li>Todo en <b>una sola pantalla</b>, con 3 pasos numerados que siguen el orden en que ella piensa: quién, qué, cómo paga (RNF-03).</li>
+          <li>El precio viene sugerido (costo + 25%) pero se puede cambiar, porque a veces hace precio (RF-17, RN-02).</li>
+          <li>No hay número de cuotas: solo "fiado" y una entrega opcional (RN-05).</li>
+          <li>Se muestra cómo queda la deuda <b>antes</b> de guardar, para evitar errores.</li>
+          <li>Si la prenda no tiene stock, no aparece en la búsqueda (RF-18).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 3. REGISTRAR PAGO ================= -->
+    <section class="screen" id="pago">
+      <div class="screen-head"><h1>💵 Registrar pago</h1></div>
+
+      <div class="section">
+        <label class="f">Clienta</label>
+        <div class="searchbox"><input class="input" value="Marta Gómez" aria-label="Buscar clienta"></div>
+      </div>
+
+      <div class="box stat section"><div class="label">Hoy debe</div><div class="value">$ 7.500</div><div class="hint">Último pago: 12/10 · $ 5.000</div></div>
+
+      <div class="section">
+        <label class="f" for="montoPago">¿Cuánto te pagó?</label>
+        <input class="input money" id="montoPago" inputmode="numeric" value="5000">
+      </div>
+
+      <div class="section">
+        <label class="f">¿Cómo te pagó?</label>
+        <div class="choice" data-group="medio">
+          <button class="sel">💵 Efectivo</button>
+          <button>📱 Mercado Pago</button>
+          <button>🏦 Transferencia</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <label class="f" for="fechaPago">Fecha</label>
+        <input class="input" id="fechaPago" value="Hoy, 06/11/2026">
+      </div>
+
+      <div class="box section" style="border-color:var(--ink)">
+        <div class="row between wrap"><span>Va a quedar debiendo</span><span class="total" id="nuevoSaldo">$ 2.500</span></div>
+      </div>
+
+      <button class="btn primary block">✔ Guardar pago</button>
+
+      <div class="note">
+        <h4>📝 Notas de diseño</h4>
+        <ul>
+          <li>Es la pantalla más usada desde el celular: pocos campos y en una sola columna (RNF-02).</li>
+          <li>Los medios de pago son botones grandes, no una lista desplegable: un toque y listo (RF-20).</li>
+          <li>El nuevo saldo se calcula mientras escribe. <i>Probalo: cambiá el monto.</i></li>
+          <li>La fecha viene con "hoy" cargado. Solo la cambia si anota un pago atrasado.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 4. CLIENTAS ================= -->
+    <section class="screen" id="clientas">
+      <div class="screen-head"><h1>👩 Clientas</h1><button class="btn">+ Nueva clienta</button></div>
+
+      <div class="grid g2 section">
+        <div class="searchbox"><input class="input" placeholder="Buscar por nombre…" aria-label="Buscar clienta"></div>
+        <div class="choice" data-group="filtro">
+          <button class="sel">Con deuda</button>
+          <button>Todas</button>
+        </div>
+      </div>
+
+      <div class="tablewrap desktop-only">
+        <table>
+          <thead><tr><th>Nombre</th><th>Lugar</th><th class="num">Debe</th><th>Último pago</th><th></th></tr></thead>
+          <tbody>
+            <tr class="late"><td><b>Susana R.</b></td><td>Sindicato</td><td class="num"><b>$ 21.000</b></td><td>hace 45 días <span class="badge warn">Atrasada</span></td><td><button class="btn small">💬 WhatsApp</button></td></tr>
+            <tr class="late"><td><b>Graciela P.</b></td><td>CONICET</td><td class="num"><b>$ 14.500</b></td><td>hace 38 días <span class="badge warn">Atrasada</span></td><td><button class="btn small">💬 WhatsApp</button></td></tr>
+            <tr data-go="ficha" style="cursor:pointer"><td><b><u>Marta Gómez</u></b></td><td>CONICET</td><td class="num"><b>$ 7.500</b></td><td>hace 25 días</td><td><button class="btn small">💬 WhatsApp</button></td></tr>
+            <tr><td><b>Ana Torres</b></td><td>CONICET</td><td class="num"><b>$ 6.000</b></td><td>hace 8 días</td><td><button class="btn small">💬 WhatsApp</button></td></tr>
+            <tr><td><b>Laura M.</b></td><td>Sindicato</td><td class="num"><b>$ 3.200</b></td><td>hace 3 días</td><td><button class="btn small">💬 WhatsApp</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mobile-only list">
+        <div><div class="row between"><b>Susana R.</b><b>$ 21.000</b></div><div class="muted">Sindicato · <span class="badge warn">45 días sin pagar</span></div></div>
+        <div><div class="row between"><b>Graciela P.</b><b>$ 14.500</b></div><div class="muted">CONICET · <span class="badge warn">38 días sin pagar</span></div></div>
+        <div data-go="ficha" style="cursor:pointer"><div class="row between"><b><u>Marta Gómez</u></b><b>$ 7.500</b></div><div class="muted">CONICET · pagó hace 25 días</div></div>
+        <div><div class="row between"><b>Ana Torres</b><b>$ 6.000</b></div><div class="muted">CONICET · pagó hace 8 días</div></div>
+      </div>
+
+      <p class="hint" style="margin-top:12px">Tocá a <b>Marta Gómez</b> para ver su ficha.</p>
+
+      <div class="note">
+        <h4>📝 Notas de diseño</h4>
+        <ul>
+          <li>Por defecto muestra <b>solo las que deben</b>, ordenadas de mayor a menor deuda (RF-22).</li>
+          <li>"Atrasada" = más de 30 días sin pagar (configurable). Va en color y en texto, porque el color solo no alcanza para alguien que no ve bien.</li>
+          <li>El botón de WhatsApp abre el chat directo (RF-16).</li>
+          <li>En el celular la tabla pasa a ser una lista de tarjetas: las tablas anchas no entran en pantallas chicas.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 5. FICHA DE CLIENTA ================= -->
+    <section class="screen" id="ficha">
+      <button class="back" data-go="clientas">← Volver a clientas</button>
+      <div class="screen-head">
+        <div style="margin-right:auto">
+          <h1>Marta Gómez</h1>
+          <span class="muted">CONICET · Talle M · Le gustan los colores oscuros · Referida por Laura M.</span>
+        </div>
+      </div>
+
+      <div class="grid g3 section">
+        <div class="box stat"><div class="label">Debe</div><div class="value">$ 7.500</div></div>
+        <button class="btn primary" data-go="pago">💵 Registrar pago</button>
+        <button class="btn" data-go="venta">🛍️ Nueva venta</button>
+      </div>
+      <div class="row wrap section">
+        <button class="btn small">💬 Escribir por WhatsApp</button>
+        <button class="btn small">📨 Mandar resumen de cuenta</button>
+        <button class="btn small">✏️ Editar datos</button>
+      </div>
+
+      <div class="box section">
+        <h3>Movimientos de la cuenta</h3>
+        <div class="tl-item"><span class="tl-date">12/10/2026</span><span>Pago · Mercado Pago</span><span class="minus">− $ 5.000</span><span class="tl-bal muted">Saldo $ 7.500</span></div>
+        <div class="tl-item"><span class="tl-date">03/10/2026</span><span>Compra: Remera oversize M negra</span><span class="plus">+ $ 12.500</span><span class="tl-bal muted">Saldo $ 12.500</span></div>
+        <div class="tl-item"><span class="tl-date">15/09/2026</span><span>Pago · Efectivo</span><span class="minus">− $ 9.000</span><span class="tl-bal muted">Saldo $ 0</span></div>
+        <div class="tl-item"><span class="tl-date">01/09/2026</span><span>Compra: Buzo canguro L bordó</span><span class="plus">+ $ 9.000</span><span class="tl-bal muted">Saldo $ 9.000</span></div>
+      </div>
+
+      <div class="grid g2 g-stack">
+        <div class="box"><h3>Encargues</h3><p>Parka negra talle L · <span class="badge">Buscando</span></p></div>
+        <div class="box"><h3>Clientas que recomendó</h3><p>Rosa D. · Silvia F.</p></div>
+      </div>
+
+      <div class="note">
+        <h4>📝 Notas de diseño</h4>
+        <ul>
+          <li>Reemplaza la hoja de Excel de esa clienta: ventas y pagos mezclados por fecha, con el saldo después de cada uno (RF-21).</li>
+          <li>"Mandar resumen" arma un mensaje amable de WhatsApp con el saldo (RF-24).</li>
+          <li>"Referida por" y "Clientas que recomendó" muestran el boca a boca (RF-15).</li>
+          <li>Las notas (gustos, talle) le sirven para elegir qué llevar en el bolso.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 6. REGISTRAR COMPRA ================= -->
+    <section class="screen" id="compra">
+      <div class="screen-head"><h1>🧾 Registrar compra</h1></div>
+
+      <div class="grid g3 section">
+        <div><label class="f">¿Dónde compraste?</label><select class="input"><option>Taller Flores</option><option>Galería Avellaneda</option><option>+ Proveedor nuevo…</option></select></div>
+        <div><label class="f">Fecha</label><input class="input" value="Hoy, 06/11/2026"></div>
+        <div><label class="f">Comprobante</label><button class="btn block">📷 Sacar foto del ticket</button></div>
+      </div>
+
+      <div class="box section">
+        <h3>Prendas que compraste</h3>
+        <div class="tablewrap">
+          <table id="tablaCompra">
+            <thead><tr><th>Prenda</th><th>Talle</th><th>Color</th><th class="num">Cant.</th><th class="num">Te costó c/u</th><th class="num">Vas a vender a</th></tr></thead>
+            <tbody>
+              <tr><td>Remera oversize</td><td>M</td><td>Blanca</td><td class="num">1</td><td class="num"><input class="input costo" value="10000" style="width:120px" aria-label="Costo"></td><td class="num"><b class="sugerido">$ 12.500</b></td></tr>
+              <tr><td>Remera oversize</td><td>L</td><td>Negra</td><td class="num">1</td><td class="num"><input class="input costo" value="10000" style="width:120px" aria-label="Costo"></td><td class="num"><b class="sugerido">$ 12.500</b></td></tr>
+              <tr><td>Rompeviento</td><td>XL</td><td>Azul</td><td class="num">1</td><td class="num"><input class="input costo" value="24000" style="width:120px" aria-label="Costo"></td><td class="num"><b class="sugerido">$ 30.000</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row wrap" style="margin-top:12px">
+          <button class="btn small">+ Agregar prenda</button>
+          <button class="btn small">+ Mismo modelo, otro talle/color</button>
+        </div>
+        <div class="row between" style="margin-top:12px"><span>Total gastado</span><span class="total" id="totalCompra">$ 44.000</span></div>
+      </div>
+
+      <div class="row wrap">
+        <button class="btn primary">✔ Guardar compra</button>
+        <button class="btn" data-go="inicio">Cancelar</button>
+      </div>
+
+      <div class="note">
+        <h4>📝 Notas de diseño</h4>
+        <ul>
+          <li>Pensada para la PC, con el ticket al lado: se copia fila por fila (RF-07).</li>
+          <li>"Vas a vender a" se calcula con el margen del 25% y se puede editar. <i>Probalo: cambiá un costo.</i> (RF-09)</li>
+          <li>"Mismo modelo, otro talle/color" existe porque ella compra 1 a 3 unidades del mismo modelo en distintas variantes.</li>
+          <li>La foto del ticket es opcional (RF-11, prioridad Could).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 7. PRENDAS / STOCK ================= -->
+    <section class="screen" id="prendas">
+      <div class="screen-head"><h1>👕 Prendas</h1><span class="muted">25 en stock · valen $ 312.000</span></div>
+
+      <div class="grid g2 section">
+        <div class="searchbox"><input class="input" placeholder="Buscar prenda…" aria-label="Buscar prenda"></div>
+        <select class="input" aria-label="Categoría"><option>Todas las categorías</option><option>Remeras</option><option>Jeans</option><option>Camperas y parkas</option></select>
+      </div>
+
+      <div class="grid g3">
+        <div class="box">
+          <div class="img md section"></div>
+          <h3>Remera oversize</h3>
+          <div class="section"><span class="chip zero">M negra · 0</span><span class="chip">L blanca · 1</span><span class="chip">M blanca · 1</span></div>
+          <p class="muted">$ 12.500 · Taller Flores</p>
+          <p><span class="badge ok">Se vende bien</span></p>
+          <button class="btn small">🔁 Reponer</button>
+        </div>
+        <div class="box" style="border-color:var(--warn)">
+          <div class="img md section"></div>
+          <h3>Camisa lino</h3>
+          <div class="section"><span class="chip">S celeste · 1</span></div>
+          <p class="muted">$ 15.000 · Galería Avellaneda</p>
+          <p><span class="badge warn">⚠ Ofrecida 4 veces · No la mostraste en Sindicato</span></p>
+          <div class="row wrap"><button class="btn small">✏️ Bajar precio</button><button class="btn small" data-go="baja">🎁 Dar de baja</button></div>
+        </div>
+        <div class="box">
+          <div class="img md section"></div>
+          <h3>Jogging frisado</h3>
+          <div class="section"><span class="chip">M gris · 1</span><span class="chip">L negro · 2</span></div>
+          <p class="muted">$ 18.750 · Taller Flores</p>
+          <p><span class="badge">Ofrecida 1 vez</span></p>
+          <button class="btn small">🔁 Reponer</button>
+        </div>
+      </div>
+
+      <div class="note">
+        <h4>📝 Notas de diseño</h4>
+        <ul>
+          <li>Se muestran tarjetas con foto porque ella reconoce las prendas por cómo se ven, no por el nombre.</li>
+          <li>Cada talle/color aparece con su cantidad. Los agotados se ven tachados (RF-02).</li>
+          <li>La alerta usa <b>su</b> criterio, "veces ofrecida", y dice <b>dónde falta mostrarla</b>, que es lo que puede hacer al respecto (RF-40, RN-07).</li>
+          <li>"Reponer" crea una compra con el proveedor y el último costo ya cargados (RF-10).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 8. DAR DE BAJA ================= -->
+    <section class="screen" id="baja">
+      <button class="back" data-go="prendas">← Volver a prendas</button>
+      <div class="screen-head"><h1>🎁 Dar de baja una prenda</h1></div>
+      <div class="box section row"><div class="img sm"></div><div><b>Camisa lino</b><br><span class="muted">Talle S · Celeste · te costó $ 12.000</span></div></div>
+      <div class="section">
+        <label class="f">¿Por qué?</label>
+        <div class="choice" data-group="motivo">
+          <button class="sel">🎁 La regalo / dono</button>
+          <button>🧵 Está dañada</button>
+          <button>❓ Se perdió</button>
+        </div>
+      </div>
+      <div class="alert section">Esta prenda te costó $ 12.000. Va a quedar registrada como pérdida.</div>
+      <div class="row wrap">
+        <button class="btn primary">Confirmar baja</button>
+        <button class="btn" data-go="prendas">Cancelar</button>
+      </div>
+      <div class="note">
+        <h4>📝 Notas de diseño</h4>
+        <ul>
+          <li>Mostrar la plata perdida no es para que se sienta mal: es el dato que hoy no ve (RF-26, RN-09).</li>
+          <li>Pide confirmación porque es una acción que saca stock (RNF-04).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 9. SALIDAS ================= -->
+    <section class="screen" id="salida">
+      <div class="screen-head"><h1>👜 Salida de hoy</h1><span class="badge">Etapa 2</span></div>
+
+      <div class="grid g2 g-stack">
+        <div class="box">
+          <h2><span class="step">1</span>Armar el bolso</h2>
+          <label class="f">¿A dónde vas?</label>
+          <div class="choice section" data-group="lugar" data-multi>
+            <button class="sel">CONICET</button>
+            <button>Sindicato</button>
+          </div>
+          <label class="f">¿Qué llevás?</label>
+          <p class="hint">Primero aparecen las que menos mostraste en CONICET.</p>
+          <div class="list">
+            <label class="row"><input type="checkbox" checked style="width:24px;height:24px"> <span style="flex:1">Rompeviento XL azul <span class="badge">Nueva</span></span></label>
+            <label class="row"><input type="checkbox" checked style="width:24px;height:24px"> <span style="flex:1">Jogging frisado M gris <span class="muted">· 0 veces acá</span></span></label>
+            <label class="row"><input type="checkbox" checked style="width:24px;height:24px"> <span style="flex:1">Remera oversize L blanca <span class="muted">· 1 vez acá</span></span></label>
+            <label class="row"><input type="checkbox" style="width:24px;height:24px"> <span style="flex:1">Camisa lino S celeste <span class="badge warn">2 veces acá</span></span></label>
+          </div>
+          <button class="btn primary block" style="margin-top:12px">Salgo con 3 prendas</button>
+        </div>
+
+        <div class="box">
+          <h2><span class="step">2</span>Al volver</h2>
+          <p class="hint">Marcá qué pasó con cada prenda.</p>
+          <div class="list">
+            <div>
+              <b>Rompeviento XL azul</b>
+              <div class="choice" data-group="r1" style="margin-top:8px"><button class="sel">Se vendió</button><button>Volvió</button><button>Cambio</button></div>
+              <select class="input" style="margin-top:8px" aria-label="Clienta"><option>¿A quién? → Ana Torres</option></select>
+            </div>
+            <div>
+              <b>Jogging frisado M gris</b>
+              <div class="choice" data-group="r2" style="margin-top:8px"><button>Se vendió</button><button class="sel">Volvió</button><button>Cambio</button></div>
+            </div>
+            <div>
+              <b>Remera oversize L blanca</b>
+              <div class="choice" data-group="r3" style="margin-top:8px"><button>Se vendió</button><button>Volvió</button><button class="sel">Cambio</button></div>
+              <input class="input" style="margin-top:8px" value="Ana la quiere en talle M" aria-label="Detalle del cambio">
+            </div>
+          </div>
+          <button class="btn primary block" style="margin-top:12px">✔ Cerrar salida</button>
+        </div>
+      </div>
+
+      <div class="note">
+        <h4>📝 Notas de diseño</h4>
+        <ul>
+          <li>Copia su forma de trabajar: prepara el bolso, sale y vuelve (RF-29, RF-30).</li>
+          <li>Al armar el bolso sugiere lo que menos mostró en ese lugar, para que nada llegue a "no sale" sin haberse ofrecido en todos lados (RF-32).</li>
+          <li>Al cerrar: "Se vendió" genera la venta, "Cambio" genera un encargue de cambio y lo que "Volvió" suma una vez ofrecida.</li>
+          <li><b>Riesgo:</b> es la pantalla que más le cambia la rutina. Si no la usa, el reporte de "no sale" no funciona. Validarla con ella antes de programarla.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 10. ENCARGUES ================= -->
+    <section class="screen" id="pedidos">
+      <div class="screen-head"><h1>📋 Encargues y cambios</h1><button class="btn">+ Nuevo encargue</button></div>
+      <div class="choice section" data-group="vistaPedidos" style="max-width:520px">
+        <button class="sel">Por proveedor</button>
+        <button>Por estado</button>
+      </div>
+
+      <div class="cols">
+        <div>
+          <h3>🏭 Taller Flores</h3>
+          <div class="card"><span class="badge">Cambio</span><p style="margin-top:6px"><b>Remera oversize</b> L blanca → M blanca</p><p class="muted">Para Ana Torres · hace 2 días</p></div>
+          <div class="card"><span class="badge">Encargue</span><p style="margin-top:6px"><b>Jogging</b> talle XL negro</p><p class="muted">Para Laura M. · hace 5 días</p></div>
+        </div>
+        <div>
+          <h3>🏭 Galería Avellaneda</h3>
+          <div class="card"><span class="badge">Encargue</span><div class="img sm" style="margin-top:8px"></div><p><b>Parka</b> negra talle L</p><p class="muted">Para Marta Gómez · <span class="badge">Buscando</span></p></div>
+        </div>
+        <div>
+          <h3>❔ Sin proveedor</h3>
+          <div class="card"><span class="badge">Encargue</span><p style="margin-top:6px"><b>Polar</b> bordó talle M</p><p class="muted">Para Susana R. · hace 12 días</p></div>
+        </div>
+      </div>
+
+      <div class="note">
+        <h4>📝 Notas de diseño</h4>
+        <ul>
+          <li>Agrupado por proveedor para resolver todo en una misma visita (RF-37).</li>
+          <li>La foto que mandó la clienta por WhatsApp se guarda en el encargue (RF-33).</li>
+          <li>Ver si prefiere esta vista o "Por estado" (Pendiente / Buscando / Conseguido).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 11. REPORTES ================= -->
+    <section class="screen" id="reportes">
+      <div class="screen-head"><h1>📊 ¿Cómo voy?</h1><select class="input" style="width:auto" aria-label="Mes"><option>Noviembre 2026</option><option>Octubre 2026</option></select></div>
+
+      <div class="grid g3 section">
+        <div class="box stat"><div class="label">Vendiste</div><div class="value">$ 130.000</div></div>
+        <div class="box stat"><div class="label">Ganaste (sobre lo vendido)</div><div class="value">$ 27.000</div></div>
+        <div class="box stat"><div class="label">De eso ya cobraste</div><div class="value">$ 15.500</div></div>
+        <div class="box stat"><div class="label">Gastaste en compras</div><div class="value">$ 88.000</div></div>
+        <div class="box stat"><div class="label">Tardan en pagarte</div><div class="value">42 días</div><div class="hint">en promedio</div></div>
+        <div class="box stat warn"><div class="label">Perdiste en prendas regaladas</div><div class="value">$ 12.000</div></div>
+      </div>
+
+      <div class="grid g2 g-stack">
+        <div class="box">
+          <h3>Ganancia de los últimos 6 meses</h3>
+          <div class="bars" style="margin-bottom:28px">
+            <div style="height:45%"><span>Jun</span></div><div style="height:60%"><span>Jul</span></div><div style="height:52%"><span>Ago</span></div>
+            <div style="height:70%"><span>Sep</span></div><div style="height:64%"><span>Oct</span></div><div class="cur" style="height:58%"><span>Nov</span></div>
+          </div>
+        </div>
+        <div class="box">
+          <h3>Lo que más se vende</h3>
+          <div class="list">
+            <div class="row between"><span>Remera oversize <span class="muted">· Taller Flores</span></span><b>9</b></div>
+            <div class="row between"><span>Jogging frisado <span class="muted">· Taller Flores</span></span><b>6</b></div>
+            <div class="row between"><span>Jean mom <span class="muted">· Galería Avellaneda</span></span><b>4</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        <h4>📝 Notas de diseño</h4>
+        <ul>
+          <li>Separa "ganaste" de "ya cobraste": vendiendo fiado, no es la misma plata (RF-39).</li>
+          <li>"Tardan en pagarte" es clave: sin recargo y con inflación, cada día de demora achica la ganancia real (RF-42).</li>
+          <li>Pocos números, grandes y con palabras simples. Nada de "margen bruto" ni "devengado".</li>
+          <li>Los valores son de ejemplo.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= BARRA INFERIOR (CELULAR) ================= -->
+    <nav class="bottomnav">
+      <button data-go="inicio"><span class="ico">🏠</span>Inicio</button>
+      <button data-go="pago"><span class="ico">💵</span>Cobrar</button>
+      <button data-go="clientas"><span class="ico">👩</span>Clientas</button>
+      <button data-go="prendas"><span class="ico">👕</span>Prendas</button>
+    </nav>
+  </main>
+</div>
+
+<script>
+  const frame = document.getElementById('frame');
+
+  function go(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.toggle('active', s.id === id));
+    document.querySelectorAll('.nav button, .bottomnav button').forEach(b => {
+      const target = b.dataset.go;
+      b.classList.toggle('active', target === id || (id === 'ficha' && target === 'clientas') || (id === 'baja' && target === 'prendas'));
+    });
+    try { localStorage.setItem('vv-screen', id); } catch (e) {}
+    window.scrollTo({ top: 0 });
+  }
+  document.addEventListener('click', e => {
+    const el = e.target.closest('[data-go]');
+    if (el && !e.target.closest('.btn.small:not([data-go])')) go(el.dataset.go);
+  });
+
+  // Selector de opciones (botones grandes)
+  document.querySelectorAll('.choice').forEach(group => {
+    group.addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      if (group.hasAttribute('data-multi')) { btn.classList.toggle('sel'); }
+      else { group.querySelectorAll('button').forEach(b => b.classList.toggle('sel', b === btn)); }
+      if (group.dataset.group === 'tipoVenta') {
+        document.getElementById('pagoInicial').classList.toggle('hidden', btn.dataset.val === 'contado');
+      }
+    });
+  });
+
+  // Pago: nuevo saldo en vivo
+  const fmt = n => '$ ' + Math.max(0, Math.round(n)).toLocaleString('es-AR');
+  const monto = document.getElementById('montoPago');
+  monto.addEventListener('input', () => {
+    const v = parseFloat(monto.value.replace(/\D/g, '')) || 0;
+    document.getElementById('nuevoSaldo').textContent = fmt(7500 - v);
+  });
+
+  // Compra: precio sugerido y total
+  function recalcCompra() {
+    let total = 0;
+    document.querySelectorAll('#tablaCompra tbody tr').forEach(tr => {
+      const c = parseFloat(tr.querySelector('.costo').value.replace(/\D/g, '')) || 0;
+      total += c;
+      tr.querySelector('.sugerido').textContent = fmt(Math.round(c * 1.25 / 100) * 100);
+    });
+    document.getElementById('totalCompra').textContent = fmt(total);
+  }
+  document.querySelectorAll('.costo').forEach(i => i.addEventListener('input', recalcCompra));
+
+  // Dispositivo y notas
+  const btnDesk = document.getElementById('btnDesk'), btnMob = document.getElementById('btnMob');
+  function setDevice(mobile) {
+    frame.classList.toggle('mobile', mobile);
+    btnDesk.setAttribute('aria-pressed', String(!mobile));
+    btnMob.setAttribute('aria-pressed', String(mobile));
+  }
+  btnDesk.onclick = () => setDevice(false);
+  btnMob.onclick = () => setDevice(true);
+  document.getElementById('chkNotes').onchange = e => document.body.classList.toggle('hide-notes', !e.target.checked);
+
+  let start = 'inicio';
+  try { start = localStorage.getItem('vv-screen') || 'inicio'; } catch (e) {}
+  go(document.getElementById(start) ? start : 'inicio');
+</script>
+</body>
+</html>

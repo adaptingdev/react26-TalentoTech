@@ -1,0 +1,60 @@
+.contenedorInicio {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.hero {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.hero h2 {
+  color: #f8fafc;
+  font-size: 2.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.hero p {
+  color: #94a3b8;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.seccionDestacados {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.8rem;
+}
+
+.tituloSeccion {
+  color: #f8fafc;
+  font-size: 1.6rem;
+  border-left: 4px solid #22c55e;
+  padding-left: 0.8rem;
+  margin: 0;
+  text-align: center;
+}
+
+.grillaDestacados {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.grillaDestacados > * {
+  width: 290px;
+}
+
+.cargando {
+  color: #94a3b8;
+  text-align: center;
+}

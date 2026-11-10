@@ -1,0 +1,164 @@
+.contenedorCarrito,
+.contenedorVacio {
+  max-width: 800px;
+  margin: 2.5rem auto;
+  padding: 2rem;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  color: #f8fafc;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.contenedorVacio {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.contenedorVacio h2 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.contenedorVacio p {
+  color: #94a3b8;
+  margin: 0;
+}
+
+.btnIrProductos {
+  margin-top: 1rem;
+  background-color: #22c55e;
+  color: #0f172a;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.btnIrProductos:hover {
+  background-color: #16a34a;
+}
+
+.titulo {
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #334155;
+  padding-bottom: 0.8rem;
+}
+
+.listaItems {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.itemCard {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.imagenItem {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.infoItem h4 {
+  margin: 0 0 0.4rem 0;
+  font-size: 1.1rem;
+  color: #f8fafc;
+}
+
+.detalleItem {
+  margin: 0.2rem 0;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+.subtotal {
+  margin: 0.4rem 0 0 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #22c55e;
+}
+
+.resumenCarrito {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #334155;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.resumenCarrito h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #f8fafc;
+}
+
+.btnVaciar {
+  background-color: #ef4444;
+  color: #ffffff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btnVaciar:hover {
+  background-color: #dc2626;
+}
+
+.btnEliminar {
+  background: transparent;
+  border: 1px solid #334155;
+  color: #ef4444;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.btnEliminar:hover {
+  background-color: rgba(239, 68, 68, 0.15);
+  border-color: #ef4444;
+  color: #f87171;
+}
+
+.btnFinalizar {
+  background-color: #22c55e;
+  color: #0f172a;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+  display: inline-block;
+}
+
+.btnFinalizar:hover {
+  background-color: #16a34a;
+}
